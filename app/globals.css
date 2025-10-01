@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "@redefinition/design-tokens";
+
+:root { color-scheme: light; }
+@layer base {
+  body { 
+    @apply bg-[color:var(--background)] text-[color:var(--foreground)];
+    /* Enhanced hexagonal tech pattern for Signals GEO platform - 50% more faint */
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.06) 0%, rgba(59, 130, 246, 0.02) 30%, transparent 70%),
+      radial-gradient(circle at 75% 75%, rgba(132, 204, 22, 0.05) 0%, rgba(132, 204, 22, 0.015) 25%, transparent 60%),
+      radial-gradient(circle at 50% 10%, rgba(59, 130, 246, 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 10% 60%, rgba(132, 204, 22, 0.03) 0%, transparent 35%),
+      radial-gradient(circle at 90% 40%, rgba(59, 130, 246, 0.025) 0%, transparent 30%),
+      linear-gradient(120deg, rgba(59, 130, 246, 0.01) 1px, transparent 1px),
+      linear-gradient(60deg, rgba(132, 204, 22, 0.0075) 1px, transparent 1px);
+    background-size: 200px 200px, 280px 280px, 150px 150px, 120px 120px, 180px 180px, 60px 60px, 60px 60px;
+    background-position: 0 0, 0 0, 0 0, 100% 100%;
+    background-attachment: fixed;
+  }
+}
+
+/* Signals GEO site accents */
+:root[data-theme='light'] {
+  --color-accent: #3B82F6; /* Blue */
+  --color-secondary: #84CC16; /* Lime */
+}
+
+
