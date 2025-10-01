@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: signalsgeo-web
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 22.16.0
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: PERPLEXITY_API_KEY
+        sync: false
+      - key: BRAVE_API_KEY
+        sync: false
+
+  - type: worker
+    name: signalsgeo-worker
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm run worker
+    envVars:
+      - key: NODE_VERSION
+        value: 22.16.0
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: PERPLEXITY_API_KEY
+        sync: false
+      - key: BRAVE_API_KEY
+        sync: false
+
