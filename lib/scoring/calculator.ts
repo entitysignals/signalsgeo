@@ -120,13 +120,16 @@ function calculateTechnicalFoundation(pages: CrawledPage[], weights: any): numbe
   for (const page of pages) {
     const checks = page.passed_checks || {};
     
-    // Count technical-related checks (these are examples - adjust based on your actual checks)
+    // Count technical-related checks matching actual checker output
     const technicalChecks = [
-      'hasStructuredData',
-      'fastLoadTime',
-      'minimalJsDependence',
-      'crawlable',
-      'accessible',
+      'org_schema_present',
+      'website_schema_present',
+      'product_service_schema_present',
+      'alt_text_ok',
+      'canonical_ok',
+      'robots_ok',
+      'sitemap_ok',
+      'contrast_ok',
     ];
 
     for (const checkKey of technicalChecks) {
@@ -134,6 +137,17 @@ function calculateTechnicalFoundation(pages: CrawledPage[], weights: any): numbe
         totalChecks++;
         if (checks[checkKey]) passedChecks++;
       }
+    }
+    
+    // Handle js_dependence_level (string value)
+    if ('js_dependence_level' in checks) {
+      totalChecks++;
+      if (checks['js_dependence_level'] === 'low') {
+        passedChecks++; // Full credit for low JS
+      } else if (checks['js_dependence_level'] === 'medium') {
+        passedChecks += 0.5; // Half credit for medium JS
+      }
+      // No credit for high JS dependence
     }
   }
 
