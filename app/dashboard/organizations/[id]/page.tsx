@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
-import { Container } from "@redefinition/ui";
+import { Container } from "@/components/ui";
 import Link from "next/link";
 import { BatchDeleteButton } from "./BatchDeleteButton";
 

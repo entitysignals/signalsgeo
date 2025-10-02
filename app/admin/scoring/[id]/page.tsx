@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { Container, Input } from "@redefinition/ui";
+import { Container, Input } from "@/components/ui";
 
 async function checkAuth() {
   const response = await fetch('/api/admin/check-auth');

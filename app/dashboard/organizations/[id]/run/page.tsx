@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { Container } from "@redefinition/ui";
+import { Container } from "@/components/ui";
 import Link from "next/link";
 
 export default function RunScanPage() {
