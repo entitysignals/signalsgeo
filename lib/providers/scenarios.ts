@@ -25,21 +25,27 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     key: 's4',
-    title: 'Pricing & Offers',
+    title: 'Comparison & Competitors',
     getPrompt: (brandName, domain, industry) =>
-      `What is the pricing or offers for ${brandName}? How much do their services cost?`,
+      `How does ${brandName} compare to competitors in the ${industry} space? What makes ${brandName} different?`,
   },
   {
     key: 's5',
-    title: 'Locations & Hours',
+    title: 'Reviews & Experience',
     getPrompt: (brandName, domain, industry) =>
-      `Where is ${brandName} located and what are their hours? Do they have physical locations?`,
+      `What are customer reviews and experiences with ${brandName}? What do users think about ${brandName}'s ${industry} services?`,
   },
   {
     key: 's6',
-    title: 'Contact & Booking',
+    title: 'Use Cases & Solutions',
     getPrompt: (brandName, domain, industry) =>
-      `How can I contact or book with ${brandName}? What are the best ways to reach them?`,
+      `What problems does ${brandName} solve? Who should use ${brandName}? When should I use ${brandName} for my ${industry} needs?`,
+  },
+  {
+    key: 's7',
+    title: 'News & Updates',
+    getPrompt: (brandName, domain, industry) =>
+      `What's new with ${brandName}? Any recent updates or announcements? What is ${brandName} known for in the ${industry} space?`,
   },
 ];
 
