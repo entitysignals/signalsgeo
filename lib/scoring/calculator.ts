@@ -92,12 +92,29 @@ function calculateContentQuality(pages: CrawledPage[], weights: any): number {
   let totalChecks = 0;
   let passedChecks = 0;
 
-  // Aggregate all page checks
+  // Content quality checks (exclude technical/schema checks)
+  const contentChecks = [
+    'faq_present',
+    'question_headings',
+    'h1_ok',
+    'headings_hierarchy_ok',
+    'byline_present',
+    'updated_date_present',
+    'outbound_citations_present',
+    'glossary_terms_present',
+    'internal_linking_ok',
+  ];
+
+  // Aggregate content quality checks from all pages
   for (const page of pages) {
     const checks = page.passed_checks || {};
-    const checkKeys = Object.keys(checks);
-    totalChecks += checkKeys.length;
-    passedChecks += checkKeys.filter((k) => checks[k] === true).length;
+    
+    for (const checkKey of contentChecks) {
+      if (checkKey in checks) {
+        totalChecks++;
+        if (checks[checkKey] === true) passedChecks++;
+      }
+    }
   }
 
   // Calculate pass rate
