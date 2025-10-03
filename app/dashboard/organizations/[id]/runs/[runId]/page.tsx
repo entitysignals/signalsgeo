@@ -4,6 +4,7 @@ import { Container } from "@/components/ui";
 import Link from "next/link";
 import { AutoRefresh } from "./AutoRefresh";
 import { DeleteButton } from "./DeleteButton";
+import { ProgressTracker } from "./ProgressTracker";
 
 export const dynamic = 'force-dynamic';
 
@@ -130,35 +131,14 @@ export default async function RunResultsPage({
             </div>
           </div>
 
-          {/* Queued Status */}
-          {run.status === "queued" && (
-            <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 mb-8">
-              <div className="flex items-center gap-3">
-                <div className="animate-pulse text-2xl">⏳</div>
-                <div>
-                  <div className="font-semibold text-yellow-900">Queued for Processing</div>
-                  <div className="text-sm text-yellow-700">
-                    Your scan is queued and will start shortly.
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Running Status */}
-          {run.status === "running" && (
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
-              <div className="flex items-center gap-3">
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
-                <div>
-                  <div className="font-semibold text-blue-900">Analysis in Progress</div>
-                  <div className="text-sm text-blue-700">
-                    Crawling pages and querying AI search engines... This page will auto-refresh.
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          {/* Progress Tracker - Shows for queued and running */}
+          <ProgressTracker 
+            runId={params.runId}
+            status={run.status}
+            initialPages={pages?.length || 0}
+            initialQueries={queries?.reduce((sum: number, q: any) => sum + (q.answers?.length || 0), 0) || 0}
+            urlBudget={run.url_budget}
+          />
 
           {/* Hero Score Card */}
           {metrics && run.status === "done" && (
