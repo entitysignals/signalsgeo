@@ -23,7 +23,7 @@ export default function Page() {
             {/* Platform Header */}
             <div className="mb-8">
               <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                Discover Your AI Readiness Score
+                Discover Your AI Visibility Score
               </h1>
               <p className="text-xl text-gray-600 mb-6">
                 See how your website performs in AI-powered search results and answer engines
@@ -51,7 +51,7 @@ export default function Page() {
               <form onSubmit={handleAnalyze} className="space-y-6">
                 <div className="text-center mb-4">
                   <p className="text-sm text-gray-600">
-                    Enter a domain to check its AI Readiness Score
+                    Enter your website and get an AI Visibility Report instantly!
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
