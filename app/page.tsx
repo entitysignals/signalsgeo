@@ -51,7 +51,7 @@ export default function Page() {
               <form onSubmit={handleAnalyze} className="space-y-6">
                 <div className="text-center mb-4">
                   <p className="text-sm text-gray-600">
-                    Enter your website to see a preview
+                    Enter a domain to check its AI Readiness Score
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
