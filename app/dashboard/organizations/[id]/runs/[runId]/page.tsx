@@ -270,13 +270,13 @@ export default async function RunResultsPage({
                   </div>
                 </div>
 
-                {/* AI Visibility */}
+                {/* AI Discoverability */}
                 <div className="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-orange-500">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <span className="text-3xl">{getScoreIcon(metrics.prompt_scenarios_score || 0, 25)}</span>
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900">AI Visibility</h3>
+                        <h3 className="text-xl font-bold text-gray-900">AI Discoverability</h3>
                         <p className={`text-3xl font-bold ${getScoreColor(metrics.prompt_scenarios_score || 0, 25)}`}>
                           {Math.round(metrics.prompt_scenarios_score || 0)}/25
                         </p>
@@ -296,15 +296,15 @@ export default async function RunResultsPage({
                       {(metrics.prompt_scenarios_score || 0) >= 17 && (metrics.prompt_scenarios_score || 0) < 21 && (
                         <>
                           <li>Moderate AI presence established</li>
-                          <li>Room for visibility improvements</li>
+                          <li>Room for discoverability improvements</li>
                         </>
                       )}
-                      {(metrics.prompt_scenarios_score || 0) >= 21 && <li>Strong AI visibility - maintain and expand</li>}
+                      {(metrics.prompt_scenarios_score || 0) >= 21 && <li>Strong AI discoverability - maintain and expand</li>}
                     </ul>
                     <Link href="https://entitysignals.com/contact" target="_blank" className="inline-block mt-3 text-blue-600 hover:text-blue-700 font-medium text-sm">
                       Improve your AI presence →
                     </Link>
-                    <PillarDetails pillarName="AI Visibility" pages={pages} queries={queries} />
+                    <PillarDetails pillarName="AI Discoverability" pages={pages} queries={queries} />
                   </div>
                 </div>
               </div>

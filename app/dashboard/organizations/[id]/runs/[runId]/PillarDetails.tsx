@@ -230,7 +230,7 @@ export function PillarDetails({ pillarName, pages, queries }: PillarDetailsProps
           {pillarName === 'Content Quality' && renderContentQualityDetails()}
           {pillarName === 'Technical Foundation' && renderTechnicalDetails()}
           {pillarName === 'Authority & Trust' && renderAuthorityDetails()}
-          {pillarName === 'AI Visibility' && renderAIVisibilityDetails()}
+          {pillarName === 'AI Discoverability' && renderAIVisibilityDetails()}
         </div>
       )}
     </div>
