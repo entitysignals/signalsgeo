@@ -53,20 +53,12 @@ export function CustomHeader() {
       <div className="border-t border-gray-100 bg-gray-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-10 space-x-6 text-xs">
-            <span className="text-gray-500">Part of:</span>
-            <a
-              href="https://redefinition.tech"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Redefinition Tech
-            </a>
+            <span className="text-gray-500">In affiliation with:</span>
             <a
               href="https://entitysignals.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
+              className="text-gray-600 hover:text-gray-900 transition-colors font-bold"
             >
               Entity Signals
             </a>
