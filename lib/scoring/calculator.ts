@@ -177,14 +177,28 @@ function calculateTechnicalFoundation(pages: CrawledPage[], weights: any): numbe
 function calculateAuthorityTrust(queries: Query[], weights: any): number {
   if (!queries || queries.length === 0) return 0;
 
+  let brandMentionCount = 0;
+  let selfCitationCount = 0;
   let tierACount = 0;
   let totalAnswers = 0;
 
-  // Count Tier A citations across all answers
+  // Evaluate authority signals across all answers
   for (const query of queries) {
     if (query.answers) {
       for (const answer of query.answers) {
         totalAnswers++;
+        
+        // Brand mentioned = basic authority signal
+        if (answer.features?.brand_mentioned) {
+          brandMentionCount++;
+        }
+        
+        // Self-cited = stronger authority (your domain is referenced)
+        if (answer.features?.self_cited) {
+          selfCitationCount++;
+        }
+        
+        // Tier A citation = strongest authority signal
         if (answer.features?.tier_a_present) {
           tierACount++;
         }
@@ -192,8 +206,18 @@ function calculateAuthorityTrust(queries: Query[], weights: any): number {
     }
   }
 
-  const tierARate = totalAnswers > 0 ? tierACount / totalAnswers : 0;
-  const score = tierARate * weights.total;
+  if (totalAnswers === 0) return 0;
+
+  // Calculate weighted authority score
+  // 40% weight on brand mentions (baseline visibility)
+  // 35% weight on self-citations (direct authority)
+  // 25% weight on Tier A presence (premium authority)
+  const brandMentionRate = brandMentionCount / totalAnswers;
+  const selfCitationRate = selfCitationCount / totalAnswers;
+  const tierARate = tierACount / totalAnswers;
+  
+  const authorityRate = (brandMentionRate * 0.4) + (selfCitationRate * 0.35) + (tierARate * 0.25);
+  const score = authorityRate * weights.total;
 
   return Math.round(score * 100) / 100;
 }
