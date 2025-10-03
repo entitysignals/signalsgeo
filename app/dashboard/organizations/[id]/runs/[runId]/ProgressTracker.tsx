@@ -61,9 +61,26 @@ export function ProgressTracker({
     return null;
   }
 
-  const crawlProgress = Math.min((pagesCount / urlBudget) * 50, 50);
-  const queryProgress = Math.min((queriesCount / 14) * 40, 40);
-  const totalProgress = crawlProgress + queryProgress;
+  // Calculate progress more smoothly
+  // Crawling: 0-40% (crawling is fast)
+  // AI Queries: 40-95% (queries take the longest)
+  // Scoring: 95-100% (final calculation)
+  let totalProgress = 0;
+  
+  if (pagesCount < urlBudget) {
+    // Crawling phase: 0-40%
+    totalProgress = (pagesCount / urlBudget) * 40;
+  } else if (queriesCount < 14) {
+    // AI query phase: 40-95%
+    // Start at 40%, add up to 55% more based on query completion
+    totalProgress = 40 + (queriesCount / 14) * 55;
+  } else {
+    // Scoring/finalizing phase: 95-99%
+    totalProgress = 95;
+  }
+  
+  // Cap at 99% until truly done (status will show 100%)
+  totalProgress = Math.min(totalProgress, 99);
 
   return (
     <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
@@ -106,8 +123,9 @@ export function ProgressTracker({
           {/* Estimated time */}
           {status === "running" && (
             <div className="text-xs text-blue-600 mt-3">
-              {totalProgress < 30 ? "⏱ Estimated time: 3-5 minutes" : 
-               totalProgress < 70 ? "⏱ Almost there... 1-2 minutes remaining" : 
+              {totalProgress < 40 ? "⏱ Estimated time: 3-4 minutes" : 
+               totalProgress < 70 ? "⏱ Running AI analysis... 2-3 minutes remaining" : 
+               totalProgress < 90 ? "⏱ Almost there... less than 1 minute" :
                "⏱ Finalizing results..."}
             </div>
           )}
