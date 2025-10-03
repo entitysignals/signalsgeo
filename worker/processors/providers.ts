@@ -21,6 +21,7 @@ export async function processProvidersJob(job: any, supabase: any) {
       .insert({
         run_id: runId,
         scenario_key: scenario.key,
+        scenario_title: scenario.title,
         prompt,
         locale: 'en-CA',
       })
