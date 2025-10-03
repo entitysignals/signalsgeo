@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AutoRefresh } from "./AutoRefresh";
 import { DeleteButton } from "./DeleteButton";
 import { ProgressTracker } from "./ProgressTracker";
+import { PillarDetails } from "./PillarDetails";
 
 export const dynamic = 'force-dynamic';
 
@@ -189,6 +190,7 @@ export default async function RunResultsPage({
                     <Link href="https://entitysignals.com/contact" target="_blank" className="inline-block mt-3 text-blue-600 hover:text-blue-700 font-medium text-sm">
                       Get content strategy help →
                     </Link>
+                    <PillarDetails pillarName="Content Quality" pages={pages} queries={queries} />
                   </div>
                 </div>
 
@@ -226,6 +228,7 @@ export default async function RunResultsPage({
                     <Link href="https://entitysignals.com/contact" target="_blank" className="inline-block mt-3 text-blue-600 hover:text-blue-700 font-medium text-sm">
                       Get technical audit →
                     </Link>
+                    <PillarDetails pillarName="Technical Foundation" pages={pages} queries={queries} />
                   </div>
                 </div>
 
@@ -263,6 +266,7 @@ export default async function RunResultsPage({
                     <Link href="https://entitysignals.com/contact" target="_blank" className="inline-block mt-3 text-blue-600 hover:text-blue-700 font-medium text-sm">
                       Learn authority building strategies →
                     </Link>
+                    <PillarDetails pillarName="Authority & Trust" pages={pages} queries={queries} />
                   </div>
                 </div>
 
@@ -300,6 +304,7 @@ export default async function RunResultsPage({
                     <Link href="https://entitysignals.com/contact" target="_blank" className="inline-block mt-3 text-blue-600 hover:text-blue-700 font-medium text-sm">
                       Improve your AI presence →
                     </Link>
+                    <PillarDetails pillarName="AI Visibility" pages={pages} queries={queries} />
                   </div>
                 </div>
               </div>

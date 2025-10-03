@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export function AutoRefresh({ 
   status, 
@@ -9,6 +10,8 @@ export function AutoRefresh({
   status: string;
   hasScore: boolean;
 }) {
+  const router = useRouter();
+  
   useEffect(() => {
     // Keep refreshing until status is "done" AND we have a score
     const shouldRefresh = 
@@ -18,13 +21,13 @@ export function AutoRefresh({
 
     if (shouldRefresh) {
       const interval = setInterval(() => {
-        // Hard reload to bypass cache
-        window.location.reload();
+        // Soft refresh using router - prevents progress bar jumping
+        router.refresh();
       }, 5000);
 
       return () => clearInterval(interval);
     }
-  }, [status, hasScore]);
+  }, [status, hasScore, router]);
 
   return null;
 }
