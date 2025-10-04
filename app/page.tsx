@@ -69,10 +69,8 @@ export default function Page() {
 
   const handleAnalyze = (e: React.FormEvent) => {
     e.preventDefault();
-    // Show auth modal instead of redirecting directly
-    if (domain.trim()) {
-      setShowAuthModal(true);
-    }
+    // Show auth modal regardless of whether domain is filled
+    setShowAuthModal(true);
   };
 
   return (
