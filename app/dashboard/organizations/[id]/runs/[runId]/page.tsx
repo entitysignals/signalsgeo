@@ -169,24 +169,35 @@ export default async function RunResultsPage({
                       </div>
                     </div>
                   </div>
-                  <div className="space-y-2 text-gray-700">
-                    <p className="font-medium text-gray-900">Issues Identified:</p>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
-                      {(metrics.content_quality_score || 0) < 28 && (
-                        <>
-                          <li>Missing conversational Q&A content structure</li>
-                          <li>Limited expertise and authority signals detected</li>
-                          <li>Heading hierarchy needs optimization</li>
-                        </>
-                      )}
-                      {(metrics.content_quality_score || 0) >= 28 && (metrics.content_quality_score || 0) < 35 && (
-                        <>
-                          <li>Some content quality gaps remain</li>
-                          <li>Additional expertise signals needed</li>
-                        </>
-                      )}
-                      {(metrics.content_quality_score || 0) >= 35 && <li>Good foundation - minor improvements possible</li>}
-                    </ul>
+                  <div className="space-y-4 text-gray-700">
+                    {/* Simple Explanation */}
+                    <div className="bg-gray-50 rounded-lg p-4">
+                      <p className="font-semibold text-gray-900 mb-3 text-sm">What This Means:</p>
+                      <div className="space-y-3">
+                        {/* Good Points */}
+                        {(metrics.content_quality_score || 0) >= 28 && (
+                          <div>
+                            <p className="text-xs font-semibold text-green-700 mb-1">✓ What's Working:</p>
+                            <ul className="space-y-1 text-xs text-gray-700 ml-4">
+                              {(metrics.content_quality_score || 0) >= 35 && <li>• Your content is well-structured and easy for AI to understand</li>}
+                              {(metrics.content_quality_score || 0) >= 30 && <li>• You have good heading organization that helps AI find information</li>}
+                              {(metrics.content_quality_score || 0) >= 28 && <li>• Your pages show some expertise signals that build trust</li>}
+                            </ul>
+                          </div>
+                        )}
+                        {/* Bad Points */}
+                        {(metrics.content_quality_score || 0) < 35 && (
+                          <div>
+                            <p className="text-xs font-semibold text-red-700 mb-1">✗ Areas to Improve:</p>
+                            <ul className="space-y-1 text-xs text-gray-700 ml-4">
+                              {(metrics.content_quality_score || 0) < 28 && <li>• Add FAQ sections - AI loves answering direct questions</li>}
+                              {(metrics.content_quality_score || 0) < 30 && <li>• Include author names and dates to show expertise</li>}
+                              {(metrics.content_quality_score || 0) < 35 && <li>• Link to credible sources to back up your claims</li>}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                     <Link href="https://entitysignals.com/contact" target="_blank" className="inline-block mt-3 text-blue-600 hover:text-blue-700 font-medium text-sm">
                       Get content strategy help →
                     </Link>
@@ -207,24 +218,35 @@ export default async function RunResultsPage({
                       </div>
                     </div>
                   </div>
-                  <div className="space-y-2 text-gray-700">
-                    <p className="font-medium text-gray-900">Issues Identified:</p>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
-                      {(metrics.technical_foundation_score || 0) < 14 && (
-                        <>
-                          <li>Critical schema markup gaps detected</li>
-                          <li>Crawlability and indexing concerns</li>
-                          <li>Page speed optimization needed</li>
-                        </>
-                      )}
-                      {(metrics.technical_foundation_score || 0) >= 14 && (metrics.technical_foundation_score || 0) < 17 && (
-                        <>
-                          <li>Some technical SEO improvements needed</li>
-                          <li>Schema markup can be enhanced</li>
-                        </>
-                      )}
-                      {(metrics.technical_foundation_score || 0) >= 17 && <li>Strong technical foundation - keep maintaining</li>}
-                    </ul>
+                  <div className="space-y-4 text-gray-700">
+                    {/* Simple Explanation */}
+                    <div className="bg-gray-50 rounded-lg p-4">
+                      <p className="font-semibold text-gray-900 mb-3 text-sm">What This Means:</p>
+                      <div className="space-y-3">
+                        {/* Good Points */}
+                        {(metrics.technical_foundation_score || 0) >= 14 && (
+                          <div>
+                            <p className="text-xs font-semibold text-green-700 mb-1">✓ What's Working:</p>
+                            <ul className="space-y-1 text-xs text-gray-700 ml-4">
+                              {(metrics.technical_foundation_score || 0) >= 17 && <li>• Your site has proper structured data that AI can read</li>}
+                              {(metrics.technical_foundation_score || 0) >= 15 && <li>• AI crawlers can easily access and understand your pages</li>}
+                              {(metrics.technical_foundation_score || 0) >= 14 && <li>• Your site loads reasonably well for automated scanners</li>}
+                            </ul>
+                          </div>
+                        )}
+                        {/* Bad Points */}
+                        {(metrics.technical_foundation_score || 0) < 17 && (
+                          <div>
+                            <p className="text-xs font-semibold text-red-700 mb-1">✗ Areas to Improve:</p>
+                            <ul className="space-y-1 text-xs text-gray-700 ml-4">
+                              {(metrics.technical_foundation_score || 0) < 14 && <li>• Add schema markup so AI knows what your business does</li>}
+                              {(metrics.technical_foundation_score || 0) < 15 && <li>• Make sure your sitemap exists so AI can find all your pages</li>}
+                              {(metrics.technical_foundation_score || 0) < 17 && <li>• Reduce heavy JavaScript that might block AI from reading content</li>}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                     <Link href="https://entitysignals.com/contact" target="_blank" className="inline-block mt-3 text-blue-600 hover:text-blue-700 font-medium text-sm">
                       Get technical audit →
                     </Link>
@@ -245,24 +267,35 @@ export default async function RunResultsPage({
                       </div>
                     </div>
                   </div>
-                  <div className="space-y-2 text-gray-700">
-                    <p className="font-medium text-gray-900">Issues Identified:</p>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
-                      {(metrics.authority_trust_score || 0) < 10 && (
-                        <>
-                          <li>Low presence in AI citation results</li>
-                          <li>Trust signals need strengthening</li>
-                          <li>Authority building opportunities missed</li>
-                        </>
-                      )}
-                      {(metrics.authority_trust_score || 0) >= 10 && (metrics.authority_trust_score || 0) < 13 && (
-                        <>
-                          <li>Moderate authority signals present</li>
-                          <li>Citation opportunities exist</li>
-                        </>
-                      )}
-                      {(metrics.authority_trust_score || 0) >= 13 && <li>Good authority presence - continue building</li>}
-                    </ul>
+                  <div className="space-y-4 text-gray-700">
+                    {/* Simple Explanation */}
+                    <div className="bg-gray-50 rounded-lg p-4">
+                      <p className="font-semibold text-gray-900 mb-3 text-sm">What This Means:</p>
+                      <div className="space-y-3">
+                        {/* Good Points */}
+                        {(metrics.authority_trust_score || 0) >= 10 && (
+                          <div>
+                            <p className="text-xs font-semibold text-green-700 mb-1">✓ What's Working:</p>
+                            <ul className="space-y-1 text-xs text-gray-700 ml-4">
+                              {(metrics.authority_trust_score || 0) >= 13 && <li>• AI engines recognize and mention your brand name</li>}
+                              {(metrics.authority_trust_score || 0) >= 11 && <li>• Your website gets cited as a source in AI responses</li>}
+                              {(metrics.authority_trust_score || 0) >= 10 && <li>• You're building credibility in your industry</li>}
+                            </ul>
+                          </div>
+                        )}
+                        {/* Bad Points */}
+                        {(metrics.authority_trust_score || 0) < 13 && (
+                          <div>
+                            <p className="text-xs font-semibold text-red-700 mb-1">✗ Areas to Improve:</p>
+                            <ul className="space-y-1 text-xs text-gray-700 ml-4">
+                              {(metrics.authority_trust_score || 0) < 10 && <li>• AI rarely mentions your brand when answering questions</li>}
+                              {(metrics.authority_trust_score || 0) < 11 && <li>• Your site isn't being used as a trusted source yet</li>}
+                              {(metrics.authority_trust_score || 0) < 13 && <li>• Build more backlinks and mentions from reputable sites</li>}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                     <Link href="https://entitysignals.com/contact" target="_blank" className="inline-block mt-3 text-blue-600 hover:text-blue-700 font-medium text-sm">
                       Learn authority building strategies →
                     </Link>
@@ -283,24 +316,35 @@ export default async function RunResultsPage({
                       </div>
                     </div>
                   </div>
-                  <div className="space-y-2 text-gray-700">
-                    <p className="font-medium text-gray-900">Issues Identified:</p>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
-                      {(metrics.prompt_scenarios_score || 0) < 17 && (
-                        <>
-                          <li>Brand mentioned in limited scenarios</li>
-                          <li>Competitors dominating AI search results</li>
-                          <li>Self-citation opportunities being missed</li>
-                        </>
-                      )}
-                      {(metrics.prompt_scenarios_score || 0) >= 17 && (metrics.prompt_scenarios_score || 0) < 21 && (
-                        <>
-                          <li>Moderate AI presence established</li>
-                          <li>Room for discoverability improvements</li>
-                        </>
-                      )}
-                      {(metrics.prompt_scenarios_score || 0) >= 21 && <li>Strong AI discoverability - maintain and expand</li>}
-                    </ul>
+                  <div className="space-y-4 text-gray-700">
+                    {/* Simple Explanation */}
+                    <div className="bg-gray-50 rounded-lg p-4">
+                      <p className="font-semibold text-gray-900 mb-3 text-sm">What This Means:</p>
+                      <div className="space-y-3">
+                        {/* Good Points */}
+                        {(metrics.prompt_scenarios_score || 0) >= 17 && (
+                          <div>
+                            <p className="text-xs font-semibold text-green-700 mb-1">✓ What's Working:</p>
+                            <ul className="space-y-1 text-xs text-gray-700 ml-4">
+                              {(metrics.prompt_scenarios_score || 0) >= 21 && <li>• People find you when they ask AI about your industry</li>}
+                              {(metrics.prompt_scenarios_score || 0) >= 19 && <li>• AI engines recommend you in multiple scenarios</li>}
+                              {(metrics.prompt_scenarios_score || 0) >= 17 && <li>• Your brand appears in some AI search results</li>}
+                            </ul>
+                          </div>
+                        )}
+                        {/* Bad Points */}
+                        {(metrics.prompt_scenarios_score || 0) < 21 && (
+                          <div>
+                            <p className="text-xs font-semibold text-red-700 mb-1">✗ Areas to Improve:</p>
+                            <ul className="space-y-1 text-xs text-gray-700 ml-4">
+                              {(metrics.prompt_scenarios_score || 0) < 17 && <li>• Most people won't find you through AI search yet</li>}
+                              {(metrics.prompt_scenarios_score || 0) < 19 && <li>• Competitors are showing up more often than you</li>}
+                              {(metrics.prompt_scenarios_score || 0) < 21 && <li>• Create more content that answers common questions in your field</li>}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                     <Link href="https://entitysignals.com/contact" target="_blank" className="inline-block mt-3 text-blue-600 hover:text-blue-700 font-medium text-sm">
                       Improve your AI presence →
                     </Link>
