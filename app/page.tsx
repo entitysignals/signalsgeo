@@ -4,10 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Script from "next/script";
+import { AuthModal } from "@/components/AuthModal";
 
 export default function Page() {
   const router = useRouter();
   const [domain, setDomain] = useState("");
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   // FAQ Schema
   const faqSchema = {
@@ -67,12 +69,19 @@ export default function Page() {
 
   const handleAnalyze = (e: React.FormEvent) => {
     e.preventDefault();
-    // Redirect to signup page (lead magnet)
-    router.push("/auth/signup");
+    // Show auth modal instead of redirecting directly
+    if (domain.trim()) {
+      setShowAuthModal(true);
+    }
   };
 
   return (
     <>
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)} 
+        domain={domain}
+      />
       <Script
         id="faq-schema"
         type="application/ld+json"
