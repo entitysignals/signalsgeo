@@ -124,32 +124,100 @@ export async function processCrawlJob(job: any, supabase: any) {
 
 function selectUrls(domain: string, sitemapUrls: any[], budget: number): string[] {
   const urls: string[] = [];
+  const usedUrls = new Set<string>();
 
-  // Always include homepage
-  urls.push(`https://${domain}`);
+  // Helper to add URL if not already added
+  const addUrl = (url: string) => {
+    if (!usedUrls.has(url)) {
+      urls.push(url);
+      usedUrls.add(url);
+    }
+  };
 
-  // Priority URLs (if found in sitemap)
-  const priorityPatterns = ['/about', '/contact', '/services', '/products', '/faq'];
-  
-  sitemapUrls
-    .filter(u => priorityPatterns.some(p => u.loc.includes(p)))
-    .slice(0, 5)
-    .forEach(u => urls.push(u.loc));
+  // TIER 1: Critical pages (MUST scan these)
+  // Always include homepage first
+  addUrl(`https://${domain}`);
 
-  // Add high-priority sitemap URLs
-  sitemapUrls
-    .filter(u => !urls.includes(u.loc))
-    .sort((a, b) => (b.priority || 0) - (a.priority || 0))
-    .slice(0, budget - urls.length)
-    .forEach(u => urls.push(u.loc));
+  // Critical page patterns - these are essential for any business
+  const tier1Patterns = [
+    { pattern: /\/(about|about-us|about_us|company|who-we-are)($|\/|\?)/i, name: 'About' },
+    { pattern: /\/(contact|contact-us|contact_us|get-in-touch)($|\/|\?)/i, name: 'Contact' },
+    { pattern: /\/(services|our-services|what-we-do)($|\/|\?)/i, name: 'Services' },
+    { pattern: /\/(products|our-products|shop|store)($|\/|\?)/i, name: 'Products' },
+    { pattern: /\/(faq|faqs|frequently-asked-questions|help)($|\/|\?)/i, name: 'FAQ' },
+    { pattern: /\/(pricing|plans|packages|cost)($|\/|\?)/i, name: 'Pricing' },
+    { pattern: /\/(solutions|industries|use-cases)($|\/|\?)/i, name: 'Solutions' },
+  ];
 
-  // If still under budget, add any remaining URLs
-  if (urls.length < budget) {
-    sitemapUrls
-      .filter(u => !urls.includes(u.loc))
-      .slice(0, budget - urls.length)
-      .forEach(u => urls.push(u.loc));
+  // Find and add all Tier 1 pages
+  for (const { pattern, name } of tier1Patterns) {
+    const match = sitemapUrls.find(u => pattern.test(u.loc));
+    if (match) {
+      addUrl(match.loc);
+      console.log(`✓ Found critical page: ${name} - ${match.loc}`);
+    }
   }
 
+  // TIER 2: Important pages (high priority)
+  // Main category/section pages, team pages, case studies
+  const tier2Patterns = [
+    /\/(team|our-team|leadership|people)($|\/|\?)/i,
+    /\/(case-studies|portfolio|work|projects)($|\/|\?)/i,
+    /\/(testimonials|reviews|clients)($|\/|\?)/i,
+    /\/(careers|jobs|join-us)($|\/|\?)/i,
+    /\/(resources|guides|learn)($|\/|\?)/i,
+    /\/(features|capabilities)($|\/|\?)/i,
+  ];
+
+  // Add Tier 2 pages
+  const tier2Urls = sitemapUrls.filter(u => 
+    !usedUrls.has(u.loc) && tier2Patterns.some(p => p.test(u.loc))
+  );
+  tier2Urls.slice(0, Math.min(10, budget - urls.length)).forEach(u => addUrl(u.loc));
+
+  // Add pages with high sitemap priority (0.8+)
+  const highPriorityUrls = sitemapUrls
+    .filter(u => !usedUrls.has(u.loc) && (u.priority || 0) >= 0.8)
+    .sort((a, b) => (b.priority || 0) - (a.priority || 0));
+  
+  highPriorityUrls.slice(0, Math.min(5, budget - urls.length)).forEach(u => addUrl(u.loc));
+
+  // TIER 3: Secondary pages (blog posts, news, etc.)
+  // Only add these if we have budget remaining
+  if (urls.length < budget) {
+    // Deprioritize blog/news URLs (these are typically less important for AI visibility)
+    const tier3Patterns = [
+      /\/(blog|news|articles|press)($|\/|\?)/i,
+      /\/\d{4}\/\d{2}\//,  // Date-based URLs (e.g., /2024/01/)
+      /\/(tag|category|author)\//i,
+    ];
+
+    // Separate blog/news from other pages
+    const blogNewsUrls = sitemapUrls.filter(u => 
+      !usedUrls.has(u.loc) && tier3Patterns.some(p => p.test(u.loc))
+    );
+
+    const otherUrls = sitemapUrls.filter(u => 
+      !usedUrls.has(u.loc) && !tier3Patterns.some(p => p.test(u.loc))
+    );
+
+    // Add other pages first (sorted by priority)
+    const remainingBudget = budget - urls.length;
+    const otherBudget = Math.floor(remainingBudget * 0.7); // 70% for other pages
+    const blogBudget = remainingBudget - otherBudget; // 30% for blog/news
+
+    otherUrls
+      .sort((a, b) => (b.priority || 0) - (a.priority || 0))
+      .slice(0, otherBudget)
+      .forEach(u => addUrl(u.loc));
+
+    // Add blog/news pages last
+    blogNewsUrls
+      .sort((a, b) => (b.priority || 0) - (a.priority || 0))
+      .slice(0, blogBudget)
+      .forEach(u => addUrl(u.loc));
+  }
+
+  console.log(`Smart URL selection: ${urls.length} URLs selected from ${sitemapUrls.length} available`);
   return urls.slice(0, budget);
 }

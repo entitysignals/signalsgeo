@@ -8,7 +8,8 @@ import Link from "next/link";
 export default function RunScanPage() {
   const router = useRouter();
   const params = useParams();
-  const [urlBudget, setUrlBudget] = useState<number>(20);
+  const [urlBudget, setUrlBudget] = useState<number>(35); // Smart default: 35 pages
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -71,71 +72,120 @@ export default function RunScanPage() {
                 </div>
               )}
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-4">
-                  URL Budget
-                </label>
-                <div className="space-y-3">
-                  <label className="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-300 transition-all">
-                    <input
-                      type="radio"
-                      value={20}
-                      checked={urlBudget === 20}
-                      onChange={(e) => setUrlBudget(Number(e.target.value))}
-                      className="w-4 h-4 text-blue-600"
-                      disabled={loading}
-                    />
-                    <div className="ml-3 flex-1">
-                      <div className="font-semibold text-gray-900">Starter - 20 URLs</div>
-                      <div className="text-sm text-gray-600">Quick overview scan</div>
-                    </div>
-                  </label>
-
-                  <label className="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-300 transition-all">
-                    <input
-                      type="radio"
-                      value={60}
-                      checked={urlBudget === 60}
-                      onChange={(e) => setUrlBudget(Number(e.target.value))}
-                      className="w-4 h-4 text-blue-600"
-                      disabled={loading}
-                    />
-                    <div className="ml-3 flex-1">
-                      <div className="font-semibold text-gray-900">Standard - 60 URLs</div>
-                      <div className="text-sm text-gray-600">Recommended for most sites</div>
-                    </div>
-                  </label>
-
-                  <label className="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-300 transition-all">
-                    <input
-                      type="radio"
-                      value={150}
-                      checked={urlBudget === 150}
-                      onChange={(e) => setUrlBudget(Number(e.target.value))}
-                      className="w-4 h-4 text-blue-600"
-                      disabled={loading}
-                    />
-                    <div className="ml-3 flex-1">
-                      <div className="font-semibold text-gray-900">Comprehensive - 150 URLs</div>
-                      <div className="text-sm text-gray-600">Deep analysis for larger sites</div>
-                    </div>
-                  </label>
+              {/* Main Info Box */}
+              <div className="p-5 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl">
+                <div className="flex items-start gap-3">
+                  <div className="text-3xl">🤖</div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-gray-900 mb-2">Smart AI Visibility Scan</h3>
+                    <p className="text-sm text-gray-700 mb-3">
+                      Our intelligent crawler will automatically find and analyze your most important pages:
+                    </p>
+                    <ul className="text-xs text-gray-600 space-y-1 ml-4">
+                      <li>✓ <strong>Priority 1:</strong> Homepage, About, Contact, Products/Services, FAQ, Pricing</li>
+                      <li>✓ <strong>Priority 2:</strong> Team, Case Studies, Testimonials, Resources</li>
+                      <li>✓ <strong>Priority 3:</strong> Blog posts and news articles (if space allows)</li>
+                    </ul>
+                    <p className="text-xs text-gray-500 mt-3 italic">
+                      Default: {urlBudget} pages • Scans complete in 3-5 minutes
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
-                <div className="text-sm text-blue-800">
-                  <strong>What happens during a scan:</strong>
-                  <ul className="mt-2 space-y-1 list-disc list-inside">
-                    <li>Fetch robots.txt and sitemap</li>
-                    <li>Crawl up to {urlBudget} pages from your website</li>
-                    <li>Analyze content quality and technical structure</li>
-                    <li>Check authority and trust signals</li>
-                    <li>Generate comprehensive GEO score</li>
-                  </ul>
-                </div>
+              {/* Advanced Options - Collapsed by default */}
+              <div className="border border-gray-200 rounded-xl overflow-hidden">
+                <button
+                  type="button"
+                  onClick={() => setShowAdvanced(!showAdvanced)}
+                  className="w-full px-5 py-3 bg-gray-50 hover:bg-gray-100 transition-colors flex items-center justify-between text-left"
+                >
+                  <span className="text-sm font-medium text-gray-700">
+                    ⚙️ Advanced Options
+                  </span>
+                  <span className="text-gray-500 text-sm">
+                    {showAdvanced ? '▲ Hide' : '▼ Show'}
+                  </span>
+                </button>
+
+                {showAdvanced && (
+                  <div className="p-5 bg-white border-t border-gray-200">
+                    <p className="text-xs text-gray-600 mb-4">
+                      <strong>Why customize page limits?</strong> Most users don't need to change this. 
+                      However, if you have a very small site (under 10 pages) or a massive site (200+ pages), 
+                      you can adjust the scan depth. Smaller scans are faster but may miss pages. 
+                      Larger scans take longer but cover more ground.
+                    </p>
+
+                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                      Page Scan Limit
+                    </label>
+                    <div className="space-y-2">
+                      <label className="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-all">
+                        <input
+                          type="radio"
+                          value={15}
+                          checked={urlBudget === 15}
+                          onChange={(e) => setUrlBudget(Number(e.target.value))}
+                          className="w-4 h-4 text-blue-600"
+                          disabled={loading}
+                        />
+                        <div className="ml-3 flex-1">
+                          <div className="font-semibold text-gray-900 text-sm">Quick - 15 Pages</div>
+                          <div className="text-xs text-gray-600">For very small sites or quick tests</div>
+                        </div>
+                      </label>
+
+                      <label className="flex items-center p-3 border-2 border-blue-400 bg-blue-50 rounded-lg cursor-pointer">
+                        <input
+                          type="radio"
+                          value={35}
+                          checked={urlBudget === 35}
+                          onChange={(e) => setUrlBudget(Number(e.target.value))}
+                          className="w-4 h-4 text-blue-600"
+                          disabled={loading}
+                        />
+                        <div className="ml-3 flex-1">
+                          <div className="font-semibold text-gray-900 text-sm">Smart Default - 35 Pages ⭐</div>
+                          <div className="text-xs text-gray-600">Recommended • Covers all critical pages</div>
+                        </div>
+                      </label>
+
+                      <label className="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-all">
+                        <input
+                          type="radio"
+                          value={60}
+                          checked={urlBudget === 60}
+                          onChange={(e) => setUrlBudget(Number(e.target.value))}
+                          className="w-4 h-4 text-blue-600"
+                          disabled={loading}
+                        />
+                        <div className="ml-3 flex-1">
+                          <div className="font-semibold text-gray-900 text-sm">Extended - 60 Pages</div>
+                          <div className="text-xs text-gray-600">For medium-sized sites with many sections</div>
+                        </div>
+                      </label>
+
+                      <label className="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-all">
+                        <input
+                          type="radio"
+                          value={100}
+                          checked={urlBudget === 100}
+                          onChange={(e) => setUrlBudget(Number(e.target.value))}
+                          className="w-4 h-4 text-blue-600"
+                          disabled={loading}
+                        />
+                        <div className="ml-3 flex-1">
+                          <div className="font-semibold text-gray-900 text-sm">Deep - 100 Pages</div>
+                          <div className="text-xs text-gray-600">For large sites or comprehensive audits</div>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                )}
               </div>
 
+              {/* Action Buttons */}
               <div className="flex gap-4">
                 <button
                   type="button"
@@ -148,9 +198,9 @@ export default function RunScanPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                  className="flex-1 bg-gradient-to-br from-blue-600 to-indigo-700 text-white px-6 py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg"
                 >
-                  {loading ? "Starting Scan..." : "Start Scan"}
+                  {loading ? "🚀 Starting Scan..." : "🚀 Analyze Now"}
                 </button>
               </div>
             </form>
@@ -160,4 +210,3 @@ export default function RunScanPage() {
     </div>
   );
 }
-
