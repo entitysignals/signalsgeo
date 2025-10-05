@@ -7,7 +7,7 @@ SignalsGEO is a production-ready, evidence-based GEO scorecard web app for SMBs 
 - **Frontend**: Next.js 14 (App Router)
 - **UI**: TailwindCSS + @redefinition/ui components
 - **Database & Auth**: Supabase (Postgres + Auth)
-- **API Providers**: Perplexity AI, Brave Search/Summarizer
+- **API Providers**: Perplexity AI, Google Gemini (with Search Grounding)
 
 ## Getting Started
 
@@ -23,7 +23,7 @@ SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
 
 # API Keys (for Phase 4+)
 PERPLEXITY_API_KEY=your-perplexity-api-key
-BRAVE_API_KEY=your-brave-api-key
+GEMINI_API_KEY=your-gemini-api-key
 
 # App
 NEXT_PUBLIC_BASE_URL=http://localhost:3030

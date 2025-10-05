@@ -66,7 +66,7 @@ NEXT_PUBLIC_SUPABASE_URL=https://gecsydvacrnfaizjkjcx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 PERPLEXITY_API_KEY=your_perplexity_key
-BRAVE_API_KEY=your_brave_key
+GEMINI_API_KEY=your_gemini_key
 NEXT_PUBLIC_BASE_URL=https://signalsgeo-web.onrender.com
 ```
 
@@ -76,7 +76,7 @@ NODE_ENV=production
 NEXT_PUBLIC_SUPABASE_URL=https://gecsydvacrnfaizjkjcx.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 PERPLEXITY_API_KEY=your_perplexity_key
-BRAVE_API_KEY=your_brave_key
+GEMINI_API_KEY=your_gemini_key
 ```
 
 ### 4. Custom Domain (signalsgeo.com)

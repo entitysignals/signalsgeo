@@ -172,7 +172,7 @@ export function PillarDetails({ pillarName, pages, queries }: PillarDetailsProps
           {queries.map((query, idx) => {
             const answers = query.answers || [];
             const perplexity = answers.find((a: any) => a.provider === 'perplexity');
-            const brave = answers.find((a: any) => a.provider === 'brave');
+            const gemini = answers.find((a: any) => a.provider === 'gemini');
             
             return (
               <div key={idx} className="border border-gray-200 rounded p-3 bg-gray-50">
@@ -188,11 +188,11 @@ export function PillarDetails({ pillarName, pages, queries }: PillarDetailsProps
                     )}
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={brave?.features?.brand_mentioned ? 'text-green-600' : 'text-red-600'}>
-                      {brave?.features?.brand_mentioned ? '✓' : '✗'}
+                    <span className={gemini?.features?.brand_mentioned ? 'text-green-600' : 'text-red-600'}>
+                      {gemini?.features?.brand_mentioned ? '✓' : '✗'}
                     </span>
-                    <span className="text-gray-700">🦁 Brave Search</span>
-                    {brave?.features?.self_cited && (
+                    <span className="text-gray-700">✨ Google Gemini</span>
+                    {gemini?.features?.self_cited && (
                       <span className="text-xs text-blue-600">(cited your domain)</span>
                     )}
                   </div>

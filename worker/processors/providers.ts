@@ -1,5 +1,5 @@
 import { queryPerplexity } from '../../lib/providers/perplexity';
-import { queryBrave } from '../../lib/providers/brave';
+import { queryGemini } from '../../lib/providers/gemini';
 import { SCENARIOS } from '../../lib/providers/scenarios';
 import { extractFeatures } from '../../lib/providers/features';
 import { getCacheKey, getFromCache, setInCache } from '../../lib/providers/cache';
@@ -63,34 +63,34 @@ export async function processProvidersJob(job: any, supabase: any) {
       console.error('  Perplexity error:', error.message);
     }
 
-    // Query Brave
+    // Query Gemini
     try {
-      const cacheKey = getCacheKey('brave_search', prompt, 'en-CA', brandName);
+      const cacheKey = getCacheKey('gemini', prompt, 'en-CA', brandName);
       let response = getFromCache(cacheKey);
 
       if (!response) {
-        console.log('  Querying Brave...');
-        response = await queryBrave(prompt, 'en-CA');
+        console.log('  Querying Gemini...');
+        response = await queryGemini(prompt, 'en-CA');
         setInCache(cacheKey, response);
       } else {
-        console.log('  Using cached Brave response');
+        console.log('  Using cached Gemini response');
       }
 
       const features = extractFeatures(response, brandName, domain);
 
       await supabase.from('answers').insert({
         query_id: query.id,
-        provider: 'brave_search',
+        provider: 'gemini',
         answer_text: response.answer_text,
         citations: response.citations,
         features,
         raw_json: response.raw_json,
       });
 
-      // Rate limiting (Brave paid plan: 20 req/sec, but let's be conservative)
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Rate limiting (Gemini: 15 requests per minute for free tier, be conservative)
+      await new Promise(resolve => setTimeout(resolve, 5000));
     } catch (error: any) {
-      console.error('  Brave error:', error.message);
+      console.error('  Gemini error:', error.message);
     }
   }
 

@@ -384,7 +384,9 @@ export default async function RunResultsPage({
                         <div key={answer.id} className="mb-4 pl-4 border-l-2 border-gray-200">
                           <div className="flex items-center gap-2 mb-2">
                             <span className="font-semibold text-gray-700">
-                              {answer.provider === 'perplexity' ? '🤖 Perplexity AI' : '🦁 Brave Search'}
+                              {answer.provider === 'perplexity' ? '🤖 Perplexity AI' : 
+                               answer.provider === 'gemini' ? '✨ Google Gemini' : 
+                               answer.provider}
                             </span>
                             {answer.features?.brand_mentioned && (
                               <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded">✓ Brand Mentioned</span>
