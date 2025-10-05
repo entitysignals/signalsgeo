@@ -85,7 +85,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <div className="min-h-screen bg-gradient-to-br from-blue-50/30 via-transparent to-cyan-50/30">
+      <div className="min-h-screen">
         {/* Main Platform Interface */}
       <div className="flex flex-col items-center justify-center min-h-screen py-12">
         <Container>
@@ -104,7 +104,7 @@ export default function Page() {
             <div className="flex justify-center gap-4 mb-8">
               <Link
                 href="/auth/signup"
-                className="bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300"
+                className="bg-cyan-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-cyan-700 transition-all duration-300 shadow-lg shadow-cyan-500/30"
               >
                 Get Started Free
               </Link>
@@ -136,7 +136,7 @@ export default function Page() {
                   </div>
                   <button
                     type="submit"
-                    className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 min-w-[140px]"
+                    className="bg-cyan-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-cyan-700 transition-all duration-300 min-w-[140px] shadow-lg shadow-cyan-500/30"
                   >
                     Analyze Now
                   </button>
@@ -178,7 +178,7 @@ export default function Page() {
               </p>
               <Link
                 href="/auth/signup"
-                className="inline-block bg-blue-600 text-white px-10 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 text-lg"
+                className="inline-block bg-cyan-600 text-white px-10 py-4 rounded-xl font-semibold hover:bg-cyan-700 transition-all duration-300 text-lg shadow-lg shadow-cyan-500/30"
               >
                 Start Your Free Analysis
               </Link>
@@ -191,7 +191,7 @@ export default function Page() {
               </h2>
               <div className="space-y-6">
                 <details className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
-                  <summary className="font-semibold text-lg text-gray-900 cursor-pointer hover:text-blue-600">
+                  <summary className="font-semibold text-lg text-gray-900 cursor-pointer hover:text-cyan-600">
                     What is AI Visibility and why does it matter?
                   </summary>
                   <p className="mt-4 text-gray-600 leading-relaxed">
@@ -200,7 +200,7 @@ export default function Page() {
                 </details>
 
                 <details className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
-                  <summary className="font-semibold text-lg text-gray-900 cursor-pointer hover:text-blue-600">
+                  <summary className="font-semibold text-lg text-gray-900 cursor-pointer hover:text-cyan-600">
                     How does the AI Visibility Analyzer work?
                   </summary>
                   <p className="mt-4 text-gray-600 leading-relaxed">
@@ -209,7 +209,7 @@ export default function Page() {
                 </details>
 
                 <details className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
-                  <summary className="font-semibold text-lg text-gray-900 cursor-pointer hover:text-blue-600">
+                  <summary className="font-semibold text-lg text-gray-900 cursor-pointer hover:text-cyan-600">
                     What makes this different from traditional SEO tools?
                   </summary>
                   <p className="mt-4 text-gray-600 leading-relaxed">
@@ -218,7 +218,7 @@ export default function Page() {
                 </details>
 
                 <details className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
-                  <summary className="font-semibold text-lg text-gray-900 cursor-pointer hover:text-blue-600">
+                  <summary className="font-semibold text-lg text-gray-900 cursor-pointer hover:text-cyan-600">
                     How long does a scan take?
                   </summary>
                   <p className="mt-4 text-gray-600 leading-relaxed">
@@ -227,7 +227,7 @@ export default function Page() {
                 </details>
 
                 <details className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
-                  <summary className="font-semibold text-lg text-gray-900 cursor-pointer hover:text-blue-600">
+                  <summary className="font-semibold text-lg text-gray-900 cursor-pointer hover:text-cyan-600">
                     Is this tool suitable for all types of businesses?
                   </summary>
                   <p className="mt-4 text-gray-600 leading-relaxed">
@@ -236,7 +236,7 @@ export default function Page() {
                 </details>
 
                 <details className="bg-white rounded-xl p-6 shadow-md border border-gray-200">
-                  <summary className="font-semibold text-lg text-gray-900 cursor-pointer hover:text-blue-600">
+                  <summary className="font-semibold text-lg text-gray-900 cursor-pointer hover:text-cyan-600">
                     What happens after I get my report?
                   </summary>
                   <p className="mt-4 text-gray-600 leading-relaxed">

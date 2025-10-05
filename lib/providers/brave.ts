@@ -29,21 +29,48 @@ export async function queryBrave(
 
     const data = await response.json();
 
+    // Log the response structure for debugging
+    console.log('Brave API response structure:', {
+      hasWeb: !!data.web,
+      webResultsCount: data.web?.results?.length || 0,
+      hasInfobox: !!data.infobox,
+      hasFaq: !!data.faq,
+      keys: Object.keys(data)
+    });
+
     // Build answer text from top search results
     let answer_text = '';
     if (data.web?.results && Array.isArray(data.web.results)) {
       const topResults = data.web.results.slice(0, 3);
+      
+      // Try multiple fields to extract content
       answer_text = topResults
-        .map((r: any) => r.description || r.extra_snippets?.[0] || '')
+        .map((r: any) => {
+          return r.description || 
+                 r.snippet || 
+                 (r.extra_snippets && r.extra_snippets[0]) || 
+                 r.title || 
+                 '';
+        })
         .filter(Boolean)
         .join(' ');
+      
+      console.log(`Brave: Extracted ${answer_text.length} chars from ${topResults.length} results`);
     }
 
     // If no answer from results, use infobox or FAQ if available
     if (!answer_text && data.infobox?.long_desc) {
       answer_text = data.infobox.long_desc;
+      console.log('Brave: Using infobox description');
     } else if (!answer_text && data.faq?.results?.[0]) {
       answer_text = data.faq.results[0].answer;
+      console.log('Brave: Using FAQ answer');
+    }
+
+    // If still no answer, log the raw data for debugging
+    if (!answer_text) {
+      console.log('Brave: No answer text found. Sample result:', 
+        data.web?.results?.[0] ? JSON.stringify(data.web.results[0]).substring(0, 200) : 'No results');
     }
 
     // Extract citations from web results
@@ -60,6 +87,16 @@ export async function queryBrave(
           console.error('Invalid result URL:', result.url);
         }
       }
+    }
+
+    // If we still have no answer text but have results, create a summary from titles
+    if (!answer_text && data.web?.results && data.web.results.length > 0) {
+      answer_text = data.web.results
+        .slice(0, 5)
+        .map((r: any) => r.title)
+        .filter(Boolean)
+        .join('. ') + '.';
+      console.log('Brave: Fallback to titles only');
     }
 
     return {
